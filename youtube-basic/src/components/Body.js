@@ -8,13 +8,14 @@ const Body = () => {
   return (
     <div className="flex justify-center items-center">
       <div className="grid grid-flow-col relative w-[100vw]">
-        <div
-          className={`p-5 w-[200px] h-[100vh] absolute top-0 shadow-md bg-white ${
-            toggle ? `left-[-200px]` : `left-0`
-          }`}
-        >
-          <Sidebar />
-        </div>
+        {toggle && (
+          <div
+            className={`p-5 w-[200px] h-[100vh] absolute top-0 shadow-md bg-white left-0
+            }`}
+          >
+            <Sidebar />
+          </div>
+        )}
         <div className="col-span-10">
           <Outlet></Outlet>
         </div>
