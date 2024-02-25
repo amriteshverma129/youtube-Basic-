@@ -25,7 +25,7 @@ const Head = () => {
 
   const callSuggestionAPI = async () => {
     try {
-      const res = await fetch(YOUTUBE_SUGGESTION_API);
+      const res = await fetch("");
       const data = await res.json();
       dispatch(
         cacheResults({
