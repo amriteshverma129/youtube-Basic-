@@ -56,9 +56,12 @@ const Comments = ({ name, text }) => {
 const CommentLists = ({ comments }) => {
   return (
     <React.Fragment>
-      {comments.map((comment) => {
+      {comments.map((comment, index) => {
         return (
-          <div className="border-2 border-slate-300 border-l-slate-500">
+          <div
+            className="border-2 border-slate-300 border-l-slate-500"
+            key={"comment" + index}
+          >
             <Comments name={comment.name} text={comment.test}></Comments>
             <div className="pl-10">
               <CommentLists comments={comment.replies} />

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 const VideoCard = ({ item }) => {
   //console.log(item);
   const navigate = useNavigate();
-  const { snippet, statistics } = item;
+  const { snippet } = item;
   const { thumbnails, title, channelTitle } = snippet;
   return (
     <div
@@ -15,7 +15,7 @@ const VideoCard = ({ item }) => {
       <div>
         <h1 className="font-bold"> {title.slice(0, 30)}...</h1>
         <span>{channelTitle}</span>
-        <span>{statistics.viewCount}</span>
+        <span>{item?.statistics?.viewCount}</span>
       </div>
     </div>
   );
