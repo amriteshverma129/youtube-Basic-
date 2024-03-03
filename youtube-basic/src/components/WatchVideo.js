@@ -11,7 +11,7 @@ const WatchVideo = () => {
 
   useEffect(() => {
     dispatch(closeMenu());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="p-3 ">

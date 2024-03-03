@@ -10,6 +10,32 @@ import {
   getPopularYouTubeVideos,
 } from "../utils/functions/functions";
 
+const handleSuggestion = async (dispatch, searchQuery, setSuggestions) => {
+  try {
+    const response = await callSuggestionAPI(searchQuery);
+    dispatch(
+      cacheResults({
+        [searchQuery]: response,
+      })
+    );
+
+    if (!response) return;
+    setSuggestions(response);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+const handleSearchAPI = async (dispatch, query) => {
+  try {
+    let response;
+    if (query) response = await callSearchAPI(query);
+    else response = await getPopularYouTubeVideos();
+    dispatch(setVideoList(response.items));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 const SearchBox = () => {
   const dispatch = useDispatch();
   const searchState = useSelector((store) => store.search);
@@ -17,35 +43,9 @@ const SearchBox = () => {
   const [suggestions, setSuggestions] = useState(null);
   const [showSuggestionBox, setShowSuggestionBox] = useState(true);
 
-  const handleSuggestion = async () => {
-    try {
-      const response = await callSuggestionAPI(searchQuery);
-      dispatch(
-        cacheResults({
-          [searchQuery]: response,
-        })
-      );
-
-      if (!response) return;
-      setSuggestions(response);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-  const handleSearchAPI = async (query) => {
-    try {
-      let response;
-      if (query) response = await callSearchAPI(query);
-      else response = await getPopularYouTubeVideos();
-      dispatch(setVideoList(response.items));
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   useEffect(() => {
     if (!searchQuery) {
-      handleSearchAPI();
+      handleSearchAPI(dispatch);
       return;
     }
     const timer = setTimeout(() => {
@@ -53,12 +53,12 @@ const SearchBox = () => {
         setSuggestions(searchState[searchQuery]);
         return;
       }
-      handleSuggestion();
+      handleSuggestion(dispatch, searchQuery, setSuggestions);
     }, 200);
     return () => {
       clearTimeout(timer);
     };
-  }, [searchQuery, searchState]);
+  }, [searchQuery, searchState, dispatch]);
 
   return (
     <div
@@ -74,7 +74,7 @@ const SearchBox = () => {
       />
       <button
         className="py-3 px-4 rounded-r-full bg-slate-500 text-white font-semibold text-xl items-center"
-        onClick={() => handleSearchAPI(searchQuery)}
+        onClick={() => handleSearchAPI(dispatch, searchQuery)}
       >
         <SearchIcon color={"white"} />
       </button>

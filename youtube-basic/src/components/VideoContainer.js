@@ -5,23 +5,24 @@ import { setVideoList } from "../utils/slices/videoSlice";
 import { getPopularYouTubeVideos } from "../utils/functions/functions";
 import { closeMenu } from "../utils/slices/appSlice";
 
+const getYoutubeVideoList = async (dispatch) => {
+  try {
+    const data = await getPopularYouTubeVideos();
+    dispatch(setVideoList(data.items));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 const VideoContainer = () => {
   const dispatch = useDispatch();
   const videoList = useSelector((store) => store.video.videoList);
 
   useEffect(() => {
     dispatch(closeMenu());
-    getYoutubeVideoList();
-  }, []);
+    getYoutubeVideoList(dispatch);
+  }, [dispatch]);
 
-  const getYoutubeVideoList = async () => {
-    try {
-      const data = await getPopularYouTubeVideos();
-      dispatch(setVideoList(data.items));
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
   return (
     <div className="flex flex-wrap">
       {videoList?.map((item) => {

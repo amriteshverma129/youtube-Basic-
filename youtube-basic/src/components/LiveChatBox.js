@@ -18,7 +18,7 @@ const LiveChatBox = () => {
       clearInterval(intervalId);
       dispatch(clearChat());
     };
-  }, []);
+  }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
