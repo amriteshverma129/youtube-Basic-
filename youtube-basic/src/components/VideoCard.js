@@ -2,16 +2,21 @@ import React from "react";
 import { useNavigate } from "react-router";
 
 const VideoCard = ({ item }) => {
-  //console.log(item);
   const navigate = useNavigate();
-  const { snippet } = item;
+  const { snippet, id } = item;
   const { thumbnails, title, channelTitle } = snippet;
+
+  const videoId = id.videoId ? id.videoId : id;
   return (
     <div
       className="shadow-md p-2 m-2 w-22 cursor-pointer"
-      onClick={() => navigate("/watch?v=" + item.id)}
+      onClick={() => navigate("/watch?v=" + videoId)}
     >
-      <img src={thumbnails.medium.url} className="rounded-lg" />
+      <img
+        src={thumbnails.medium.url}
+        className="rounded-lg"
+        alt={thumbnails.medium.url}
+      />
       <div>
         <h1 className="font-bold"> {title.slice(0, 30)}...</h1>
         <span>{channelTitle}</span>

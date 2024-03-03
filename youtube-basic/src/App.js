@@ -1,7 +1,7 @@
 import "./App.css";
 import Body from "./components/Body";
 import Head from "./components/Head";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainContainer from "./components/MainContainer";
 import WatchVideo from "./components/WatchVideo";
 

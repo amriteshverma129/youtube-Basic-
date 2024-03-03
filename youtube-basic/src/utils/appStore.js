@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import appReducer from "./appSlice";
-import searchReducer from "./searchSlice";
-import videoSlice from "./videoSlice";
+import appSlice from "./slices/appSlice";
+import searchSlice from "./slices/searchSlice";
+import videoSlice from "./slices/videoSlice";
+import liveChatSlice from "./slices/liveChatSlice";
 
 const store = configureStore({
   reducer: {
-    app: appReducer,
-    search: searchReducer,
+    app: appSlice,
+    search: searchSlice,
     video: videoSlice,
+    liveChat: liveChatSlice,
   },
 });
 

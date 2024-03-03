@@ -1,22 +1,11 @@
 import React from "react";
 import Button from "./Button";
+import { BUTTON_LIST_ARR } from "../utils/variables/constants";
 
 const ButtonList = () => {
-  const listObj = [
-    "All",
-    "Gaming",
-    "Songs",
-    "Live",
-    "Cricket",
-    "Soccer",
-    "Tech",
-    "Construction",
-    "Cooking",
-    "Race",
-  ];
   return (
     <div>
-      {listObj.map((item, index) => {
+      {BUTTON_LIST_ARR.map((item, index) => {
         return (
           <React.Fragment key={index}>
             <Button name={item} />
